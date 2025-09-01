@@ -468,7 +468,7 @@ Appa is made of three components:
 class: middle
 
 .center[
-<video poster="" id="video" controls="" muted="" loop="" width="70%">
+<video poster="" id="video" controls="" muted="" loop="" width="70%" autoplay>
         <source src="https://montefiore-sail.github.io/appa/static/videos/reanalysis/reanalysis_1week.mp4" type="video/mp4">
 </video>
 

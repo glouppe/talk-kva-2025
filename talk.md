@@ -23,6 +23,12 @@ Gilles Louppe<br>
 ]
 ]
 
+???
+
+My goal today is to convince you that deep generative models are unlocking new scientific questions that were previously out of reach. 
+
+They are not just fancy tools to generate realistic images, but powerful statistical models that can help us tackle challenging inverse problems in science. 
+
 ---
 
 class: middle, black-slide, center
@@ -66,7 +72,7 @@ class: middle
 
 .center.width-80[![](figures/setup.svg)]
 
-## Problem statement (Bayesian inference)
+## Inverse problems in science
 
 Given noisy observations $y$, estimate either
 - the posterior distribution $p(x|y) \propto p(x) p(y|x)$ of latent states $x$, or
@@ -74,7 +80,16 @@ Given noisy observations $y$, estimate either
 
 ???
 
-Insist on the distributional aspect of the problem, we don't just care about a pretty point estimate, as for image inpainting, but about the full posterior distribution.
+Inverse problems are common in science, because we often cannot measure the quantities of interest directly. Instead, we have to guess them from indirect and noisy observations.
+
+For instance, we cannot directly probe the atmosphere of exoplanets, but we can observe their spectrum when they transit in front of their star. From this spectrum, we want to infer the atmospheric parameters (composition, temperature, pressure, etc).
+
+Or we cannot directly observe the full 3d dynamics of oceans, but we can observe their surface from space. From these satellite observations, we want to infer the full 3d state of the ocean.
+
+Why is this hard?
+- Models and simulators are expressed in terms of forward processes, which often implement causal mechanistic assumptions. In this form, they can be used to generate synthetic data, but they cannot be inverted easily.
+- The latent states $x$ we want to infer are often high-dimensional (e.g., images, time series, 3d fields) and not unique. The problem is ill-posed, there is not a single solution but a whole distribution of plausible solutions.
+- The model parameters $\theta$ we want to infer are often low-dimensional, but the likelihood $p(y|\theta)$ is intractable
 
 ---
 
@@ -111,11 +126,19 @@ class: middle, black-slide
 
 ## Exoplanet atmosphere characterization 
 
-.center.width-85[![](./figures/exoplanet-probe.jpg)]
+.center.width-80[![](./figures/exoplanet-probe.jpg)]
 
-.center[What are the atmospheres of exoplanets made of?]
+.center[What are the atmospheres of exoplanets made of?<br> How do they form and evolve? Do they host life?]
 
 .footnote[Credits: [NSA/JPL-Caltech](https://www.nasa.gov/topics/universe/features/exoplanet20100203-b.html), 2010.]
+
+???
+
+The first science question I want to discuss is the characterization of exoplanet atmospheres.
+
+When an exoplanet transits in front of its star, a tiny fraction of the starlight passes through the planet's atmosphere before reaching us. By analyzing the spectrum of this light, we can infer the composition and properties of the atmosphere.
+
+This is interesting because the atmosphere holds clues about the planet's formation, evolution, and potential habitability. 
 
 ---
 
@@ -124,6 +147,14 @@ class: middle, black-slide
 .center.width-50[![](./figures/WISE1738.jpg)]
 
 .center[WISE 1738+2732, a brown dwarf 25 light-years away.]
+
+???
+
+The object we studied is WISE 1738+2732, a brown dwarf located about 25 light-years away. It is one of the coldest known brown dwarfs, with an effective temperature of about 350K.
+
+It was observed with the JWST telescope, which provided us with a high-quality spectrum of its atmosphere.
+
+This brown dwarf is interesting because its temperature is similar to that of some exoplanets, making it a good proxy for studying exoplanet atmospheres. It is also interesting because it is cool enough to have complex molecules like water vapor, methane, and ammonia in its atmosphere. 
 
 ---
 
@@ -156,7 +187,10 @@ class: middle
 
 While this posterior plot can look intimidating, it is actually telling us a lot about the physics and chemistry of this world.
 - The atmosphere contains water vapor, methane, ammonia, carbon monoxide, and carbon dioxide
-- The detection of carbon monoxide and carbon dioxide is a surprise, as these molecules were not expected to be present in such a cold atmosphere: this suggests that non-equilibrium chemistry is at play. Stuff from deeper, hotter layers is being pumped up.
+- The detection of carbon monoxide and carbon dioxide is a surprise, as these molecules were not expected to be present in such a cold atmosphere: this suggests that non-equilibrium chemistry is at play. 
+- In turn, this disequilibrium chemistry tells us about atmospheric mixing and transport processes that shape planetary evolution.
+
+There is much more to say, but I will stop here. If you are interested, please check out the papers! The point is: all these scientific insights were made possible by our ability to perform Bayesian inference in a complex, high-dimensional, and non-linear model of exoplanet atmospheres.
 
 ---
 
@@ -167,7 +201,7 @@ count: false
 
 # Part 2: Large inverse problems
 
-$p(x|y)$, with $x \in \mathbb{R}^d$, $d = O(10^2 - 10^5)$.
+$p(x|y)$, with $x \in \mathbb{R}^d$, $d = O(10^5)$.
 
 <br>
 
@@ -308,19 +342,26 @@ class: middle
 ## Nowcasting Black Sea hypoxia from satellite observations
 
 .grid[
-.kol-2-3[.width-90[![](./figures/blacksea-oxygen.jpg)]
-
-Can .bold[surface satellite observations] $y$ (like these phytoplankton blooms) .bold[reveal oxygen conditions] throughout the entire water column $x$?
-
-]
+.kol-2-3[.width-90[![](./figures/blacksea-oxygen.jpg)]]
 .kol-1-3[.center[.width-100[![](./figures/argo-bs.png)]
 .width-50[![](./figures/argo.png)] .width-45[![](./figures/argo-oxy.png)]]
-Oxygen measurements are sparse in space and time due to the high cost of in-situ measurements.
 
 ]
 ] 
 
+.center[
+How do hypoxic zones evolve in response to climate change? Can we monitor them from space or with sparse measurements?
+]
+
 .footnote[Credits: Work in progress with Victor Mangeleer and Marilaure Grégoire.]
+
+???
+
+The Black Sea is a large inland sea between Eastern Europe and Western Asia. It is a unique ecosystem, with a strong stratification that leads to anoxic conditions below 200m depth. This makes it a natural laboratory to study hypoxia, which is a growing problem in many coastal areas worldwide due to climate change and nutrient pollution. Understanding how these zones evolve could inform early warning systems and ecosystem management strategies.
+
+In collaboration with oceanographers, we are developing methods to map the 3D oxygen concentration in the Black Sea from satellite observations of the surface and sparse in-situ measurements. This is a challenging inverse problem, as high resolution is needed:
+- Oxygen depletion patterns follow the complex bathymetry and circulation - miss the small-scale features and you miss the physics.
+- Satellite observations at 1km resolution can detect blooms and fronts that 25km resolution would completely smooth out
 
 ---
 
@@ -333,6 +374,14 @@ class: middle
 Posterior oxygen maps $p(x|y)$ can be recovered from satellite observations $y$ of the surface, by zero-shot posterior sampling from a diffusion prior $p(x)$ of the Black Sea dynamics.
 
 .footnote[Credits: Work in progress with Victor Mangeleer and Marilaure Grégoire.]
+
+???
+
+Fortunately, good physical models of the Black Sea exist, which can be used to train a diffusion prior $p(x)$ of realistic 3D oxygen maps $x$.
+
+Our preliminary results show that we can recover realistic 3D oxygen maps from satellite observations of the surface. 
+
+More work is needed to validate these results and to improve the model, but we are optimistic that this approach can provide valuable insights into the dynamics of hypoxia in the Black Sea.
 
 ---
 
@@ -364,7 +413,11 @@ $p(x|y)$, with $x \in \mathbb{R}^d$, $d = O(10^6+)$.
 
 ???
 
-Applying diffusion directly in the data space is computationally intractable for sequences of images. The denoising networks would be enormous and training would be impossible
+As we scale up to extra-large inverse problems to capture more scales and complexity, we face new challenges.
+
+Learning and using diffusion models directly in the data space becomes impractical for high-dimensional images, such as 3D fields or long time series thereof. 
+
+The denoising networks would be enormous and training would be impossible.
 
 ---
 
@@ -372,7 +425,16 @@ class: middle, center, black-slide
 
 .center.width-100[![](figures/satellite.gif)]
 
-From a sequence noisy satellite observations $y\_{1:L}$,<br> can we recover past and present atmospheric states $x\_{1:L}$?
+How can we create a comprehensive record of Earth's atmospheric evolution to understand climate change and improve weather prediction?
+
+???
+
+The last science question I want to discuss is the reconstruction of past atmospheric states from satellite observations. Or said differently
+- can we retrieve videos of the atmosphere from noisy, incomplete and coarse-grained satellite observations? 
+- can we obtain a distribution of these videos, to quantify the uncertainty in our reconstruction?
+- can we do this at the scale of the whole Earth?
+
+The goal is not just to have a pretty video, but to create a comprehensive record of Earth's atmospheric evolution. This record can be used to understand climate change, improve weather prediction, and inform policy decisions.
 
 ---
 
@@ -390,7 +452,7 @@ Assume the latent state $x$ evolves according to a transition model $p(x\_{i+1} 
 
 class: middle
 
-.avatars[![](figures/frozet.jpg)]
+.avatars[![](figures/faces/francois.jpg)]
 
 .center.width-100[![](figures/sda.svg)]
 
@@ -405,7 +467,7 @@ class: middle
 
 class: middle
 
-.avatars[![](figures/frozet.jpg)]
+.avatars[![](figures/faces/francois.jpg)]
 
 .center.width-100[![](figures/sda1-0.png)]
 
@@ -418,7 +480,7 @@ class: middle
 class: middle
 count: false
 
-.avatars[![](figures/frozet.jpg)]
+.avatars[![](figures/faces/francois.jpg)]
 
 .center.width-100[![](figures/sda1.png)]
 
@@ -435,6 +497,11 @@ class: middle, black-slide
 .center[... but does it scale to a whole Earth model?]
 
 At 0.25° resolution, for 6 atmospheric variables, 13 pressure levels, hourly time steps, and 14 days of simulation, a trajectory $x\_{1:L}$ contains $721 \times 1440 \times 6 \times 13 \times 24 \times 14 = 27 \times 10^9$ variables.
+
+.grid[
+.kol-1-5[.center.width-50[![](figures/icons/danger.png)]]
+.kol-4-5[.center.bold[$O(10^9)$ variables (or more) is needed<br> to capture the complexity of the atmosphere.]]
+]
 
 ---
 
@@ -495,7 +562,8 @@ class: middle
 
 Deep generative models are unlocking previously impossible science.
 
-- .bold[New scientific questions become accessible]: We can now tackle inverse problems with millions to billions of variables.
+- .bold[New scientific questions become accessible]: We can now tackle inverse problems with millions to billions of variables that unlock new scientific insights.
+- .bold[Statistically principled]: Bayesian inference with uncertainty quantification.
 - .bold[Methodological advantages]: Zero-shot inference without retraining. 
 
 Next challenges:

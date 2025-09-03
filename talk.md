@@ -672,7 +672,7 @@ Appa is made of three components:
 
 ???
 
-Based on this idea, we have recently developed Appa, a latent diffusion model for atmospheric data assimilation.
+Based on this idea, we have recently developed Appa, an extension of SDA built on a latent diffusion model of atmospheric dynamics.
 
 Appa is made of three components:
 - a 500M-parameter autoencoder that compresses the data space $x$ into a latent space $z$ with a 450x compression factor;
@@ -723,7 +723,7 @@ class: middle
 
 ## Conclusions
 
-Deep generative models are unlocking previously impossible science. .bold[New scientific questions become accessible]: We can now tackle inverse problems with millions to billions of variables that unlock new scientific insights.
+.bold[New scientific questions become accessible]: We can now tackle inverse problems with millions to billions of variables that unlock new scientific insights and applications.
 
 Next challenges:
 - Rigorous validation: when and why these methods work (or not).

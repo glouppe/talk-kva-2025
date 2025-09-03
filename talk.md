@@ -29,9 +29,9 @@ Good morning everyone, and thank you for the invitation to speak at this symposi
 
 My goal today is to give you a brief overview of some of the work we have been doing at the intersection of deep learning and inverse problems in science. We will look at three different scales of inverse problems, from low-dimensional to extra-large, and see how deep generative models can help us tackle them.
 
-Second, I will also try to explain how deep generative models are not just fancy tools to generate AI slop, but above all how they can help us probe physics that was previously out of reach due to computational limitations. 
+I will try to explain how deep generative models are not just fancy tools to generate AI slop, but above all how they can help us probe physics that was previously out of reach due to computational limitations. 
 
-This talk will echo some of the themes discussed in previous talks, so this is a good opportunity to connect the dots.
+This talk will echo some of the themes discussed yesterday, Laurence's talk in particular, so this is a good opportunity to connect the dots.
 
 ---
 
@@ -59,7 +59,7 @@ background-size: cover
 
 Our goal today is then quite simple: given the noisy observation $y$, can we recover all plausible physical states $x$ that could have caused this observation?
 
-For instance, if $y$ is a sparse and resolution-limited satellite image of the atmosphere, can we recover the full high-resolution 3d dynamics of the atmosphere which is consistent with this observation?
+For instance, if $y$ is a sparse and resolution-limited satellite image of the atmosphere, can we recover a high-resolution estimate of the full 3d dynamics of the atmosphere which is consistent with this observation?
 
 ---
 
@@ -104,7 +104,7 @@ Given noisy observations $y$, estimate either
 
 ???
 
-Inverse problems are common in science, because measurements are not direct and perfect. Instead, we have to deal with instrumental noise, limited resolution, and incomplete observations. As a result, our only resort is to guess the underlying physical state or model parameters from these noisy observations.
+Inverse problems are common in science, because experimental measurements are neither direct nor perfect. Instead, we have to deal with instrumental noise, limited resolution, and incomplete observations. As a result, our only resort is to guess the underlying physical state or model parameters that could have led to these observations, and to quantify the uncertainty in our estimates.
 
 Formally, we want to estimate either the posterior distribution $p(x|y)$ of latent states $x$ given noisy observations $y$, or the posterior distribution $p(\theta|y)$ of model parameters $\theta$.
 
@@ -167,7 +167,7 @@ As an example of a low-dimensional inverse problem, let me tell you about some o
 
 When an exoplanet transits in front of its star, a tiny fraction of the starlight passes through the planet's atmosphere before reaching us. By analyzing the spectrum of this light, we can infer the composition and properties of the atmosphere.
 
-This is interesting because the atmosphere holds clues about the planet's formation, evolution, and potential habitability. 
+Understanding the atmosphere of an exoplanet is in turn quite important, as it can tell us about the planet's formation and evolution and its potential for habitability.
 
 ---
 
@@ -179,7 +179,7 @@ class: middle, black-slide
 
 ???
 
-The object we studied is WISE 1738+2732, a brown dwarf located about 25 light-years away. It is one of the coldest known brown dwarfs, with an effective temperature of about 350K.
+The object we studied is WISE 1738+2732, a brown dwarf located about 25 light-years away.
 
 It was observed with the JWST telescope, which provided us with a high-quality spectrum of its atmosphere.
 
@@ -250,9 +250,9 @@ $p(x|y)$, with $x \in \mathbb{R}^d$, $d = O(10^5)$.
 
 Normalizing flows require invertible transformations, which becomes computationally prohibitive and architecturally limiting for high-dimensional problems.
 
-For this reason, as we scale up to account for more complexity and realism, we need to look for other types of deep generative models that can handle high-dimensional data.
+This is a big limitation, because as we increase resolution to account for smaller scale physics, the dimensionality of the problem increases rapidly. 
 
-Fortunately, the deep learning community has been very active in this area, with diffusion models taking the spotlight in recent years.
+For this reason, stronger deep generative models are needed. Fortunately, the deep learning community has been very active in this area, with diffusion models taking the spotlight in recent years.
 
 ---
 
@@ -348,10 +348,10 @@ This enables .bold[zero-shot posterior sampling] from a diffusion prior $p(x\_0)
 
 An alternative approach is to notice that the posterior score $\nabla\_{x\_t} \log p(x\_t|y)$ can be decomposed using Bayes' rule into the sum of the prior score $\nabla\_{x\_t} \log p(x\_t)$ and the likelihood score $\nabla\_{x\_t} \log p(y|x\_t)$.
 
-- If we have a diffusion model of the prior $p(x\_0)$, we can use it to estimate the prior score.
+- If we have a diffusion model of the prior $p(x\_0)$, then we have access to the prior score via Tweedie's formula.
 - If we have a model of the observation process $p(y|x)$, we can use it to estimate the likelihood score.
 
-This enables zero-shot posterior sampling from a diffusion prior without having to hard-wire the neural denoiser to the observation model.
+In short, this trick enables zero-shot posterior sampling from a diffusion prior without having to hard-wire the neural denoiser to the observation model.
 
 ---
 
@@ -397,8 +397,8 @@ count: false
 
 ---
 
-
 class: middle
+exclude: true
 
 .avatars[![](figures/faces/laurence.jpg)]
 
@@ -449,12 +449,12 @@ How do hypoxic zones evolve in response to climate change? Can we monitor them f
 
 ???
 
-A similar example from our own work is the nowcasting of hypoxia in the Black Sea from satellite observations.
+We have had quite a few examples yesterday from astrophysics and cosmology, so let me now turn to quite a different domain of application we have been working on recently: nowcasting hypoxia in the Black Sea from satellite observations.
 
-The Black Sea is a large inland sea between Eastern Europe and Western Asia. It is a unique ecosystem, with a strong stratification that leads to anoxic conditions below 200m depth. This makes it a natural laboratory to study hypoxia, which is a growing problem in many coastal areas worldwide due to climate change and nutrient pollution. Understanding how these zones evolve could inform early warning systems and ecosystem management strategies.
+The Black Sea is a large inland sea between Eastern Europe and Western Asia. It is a unique ecosystem, with a strong stratification that leads to anoxic conditions below 200m depth. This makes it a good laboratory to study hypoxia, which is a growing problem in many coastal areas worldwide due to climate change and nutrient pollution. Understanding how these zones evolve could inform early warning systems and ecosystem management strategies.
 
 In collaboration with oceanographers, we are trying to map the 3D oxygen concentration in the Black Sea from satellite observations of the surface and sparse in-situ measurements. This is a challenging inverse problem, as high resolution is needed:
-- Oxygen depletion patterns follow the complex bathymetry and circulation. If we miss the small-scale features, then we miss the physics.
+- Oxygen depletion patterns follow the complex bathymetry and circulation. If we miss the small-scale features, then we miss the physics of hypoxia.
 - Satellite observations at 1km resolution can detect blooms and fronts that 25km resolution would completely smooth out. Inference at high resolution is therefore critical.
 
 ---
@@ -471,7 +471,7 @@ Posterior oxygen maps $p(x|y)$ can be recovered from satellite observations $y$ 
 
 ???
 
-Fortunately, good physical models of the Black Sea exist, which can be used to train a diffusion prior $p(x)$ of realistic 3d oxygen maps $x$, just as explained before.
+Fortunately, good enough physical models of the Black Sea exist, which can be used to produce reanalysis data and  train a diffusion prior $p(x)$ of realistic 3d oxygen maps $x$, just as explained before.
 
 Our preliminary results show that we can recover realistic 3d oxygen maps from satellite observations of the surface. 
 
@@ -723,15 +723,12 @@ class: middle
 
 ## Conclusions
 
-Deep generative models are unlocking previously impossible science.
-
-- .bold[New scientific questions become accessible]: We can now tackle inverse problems with millions to billions of variables that unlock new scientific insights.
-- .bold[Statistically principled]: Bayesian inference with uncertainty quantification.
-- .bold[Methodological advantages]: Zero-shot inference without retraining. 
+Deep generative models are unlocking previously impossible science. .bold[New scientific questions become accessible]: We can now tackle inverse problems with millions to billions of variables that unlock new scientific insights.
 
 Next challenges:
 - Rigorous validation: when and why these methods work (or not).
 - Resolution (in space and time): can we go higher?
+- Misspecification: what if the prior, the physical, or the observation model are wrong?
 
 ---
 

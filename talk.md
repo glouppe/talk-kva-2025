@@ -641,13 +641,19 @@ This is orders of magnitude larger than what current diffusion models can handle
 
 class: middle
 
-## Latent diffusion models
+.avatars[![](figures/faces/frozet.jpg)]
 
-.center.width-100[![](figures/lsgm.png)]
+## Latent diffusion models for physics emulation
 
-Latent diffusion models $p\_\theta(z)$ learn a diffusion prior in a compressed latent space $z$ of much lower dimension than the data space $x$.
+.center.width-100[![](figures/lola.svg)]
+.center[
+<video poster="" id="video" controls="" muted="" loop="" width="65%" autoplay>
+        <source src="https://polymathic-ai.org/images/blog/latent_space_vid/euler_f32c64.mp4" type="video/mp4">
+</video>
+]
+Accurate physics emulators can be built by learning a diffusion model $p\_\theta(z)$ of compressed latent states $z$, even when the compression rate is very high.
 
-.footnote[Credits: [Vahdat et al](https://nvlabs.github.io/LSGM/), 2021.]
+.footnote[Credits: [Rozet et al](https://arxiv.org/abs/2507.02608), 2025 (arXiv:2507.02608).]
 
 ???
 
@@ -659,7 +665,7 @@ Latent diffusion models can help us here by learning a diffusion prior in a comp
 
 class: middle
 
-.avatars[![](figures/faces/gerome.jpg)![](figures/faces/frozet.jpg)![](figures/faces/sacha.jpg)![](figures/faces/victor.jpg)![](figures/faces/omer.jpg)![](figures/faces/mathias.jpg)![](figures/faces/elise.jpg)]
+.avatars[![](figures/faces/gerome.jpg)![](figures/faces/sacha.jpg)![](figures/faces/frozet.jpg)![](figures/faces/victor.jpg)![](figures/faces/omer.jpg)![](figures/faces/mathias.jpg)![](figures/faces/elise.jpg)]
 
 ## Appa: Bending weather dynamics with LDMs
 
@@ -668,7 +674,7 @@ Appa is made of three components:
 - a 1B-parameter .bold[diffusion model] that generates latent trajectories $z\_{1:L}$;
 - a .bold[posterior sampling algorithm] adapted from MMPS (Rozet et al, 2024) that samples from the posterior distribution $p(z\_{1:L} | y)$.
 
-.footnote[Credits: Soon on arXiv!]
+.footnote[Credits: [Andry et al](https://arxiv.org/abs/2504.18720), 2025 (arXiv:2504.18720). New version soon on arXiv!]
 
 ???
 
@@ -693,7 +699,7 @@ class: middle
 Reanalysis of past data $p(x\_{1:L} | y\_{1:L})$.
 ]
 
-.footnote[Credits: [Andry et al](https://arxiv.org/abs/2504.18720), 2025 (arXiv:2504.18720).]
+.footnote[Credits: [Andry et al](https://arxiv.org/abs/2504.18720), 2025 (arXiv:2504.18720). New version soon on arXiv!]
 
 ???
 
@@ -710,6 +716,8 @@ exclude: true
 <iframe src="https://montefiore-sail.github.io/appa-live/" width="100%" height="1000px" style="border:none; zoom: 0.5"></iframe>
 
 .center[[Live demo](https://montefiore-sail.github.io/appa-live/) of Appa.] 
+
+.footnote[Credits: [Andry et al](https://arxiv.org/abs/2504.18720), 2025 (arXiv:2504.18720). New version soon on arXiv!]
 
 ???
 

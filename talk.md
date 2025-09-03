@@ -530,8 +530,6 @@ From the inverse problem perspective, this is a daunting task:
 - can we obtain a distribution of these videos, to quantify the uncertainty in our reconstruction?
 - can we do this at the scale of the whole Earth?
 
-Of course, the goal is not just to have a pretty video, but to create a comprehensive record of Earth's atmospheric evolution. This record can be used to understand climate change, improve weather prediction, and inform policy decisions.
-
 ---
 
 class: middle
@@ -571,7 +569,7 @@ class: middle
 
 The strategy we proposed to tackle this problem is called score-based data assimilation and follows the same principles as before:
 - First, we build a score-based generative model $p(x\_{1:L})$ of arbitrary-length trajectories. This model captures the complex spatiotemporal dependencies in the data and can generate realistic trajectories.
-- Then, we use zero-shot posterior sampling to generate plausible trajectories from noisy observations $y$. This allows us to recover the posterior distribution $p(x\_{1:L}
+- Then, we use zero-shot posterior sampling to generate plausible trajectories from noisy observations $y$. This allows us to recover the posterior distribution $p(x\_{1:L} | y)$ of trajectories given the observations.
 
 ---
 
@@ -587,9 +585,9 @@ class: middle
 
 ???
 
-To illustrate this, here is an example of sampling trajectories from noisy, incomplete and coarse-grained observations.
+To illustrate this, here is an example of a data assimilation toy problem, where we want to reconstruct trajectories of a 2D turbulent fluid flow from noisy, incomplete and coarse-grained observations.
 
-- The top row shows some ground truth trajectory of 2d Kolmogorov flow of a fluid.
+- The top row shows some ground truth trajectory of  the fluid. 
 - The 2nd row shows noisy, incomplete and coarse-grained observations of this trajectory.
 
 Given these few observations, our goal is to estimate the posterior distribution of plausible trajectories that are consistent with these observations.
@@ -630,8 +628,6 @@ At 0.25° resolution, for 6 atmospheric variables, 13 pressure levels, hourly ti
 ???
 
 This is all well and good, but can this approach scale to a whole Earth model?
-
-Unfortunately, it is not as simple as just throwing more compute at the problem.
 
 If we want to capture the complexity of the atmosphere, we need to work at high resolution and account for many variables. For instance, at 0.25° resolution, for 6 atmospheric variables, 13 pressure levels, hourly time steps, and 14 days of simulation, a trajectory $x\_{1:L}$ contains $27 \times 10^9$ variables.
 
@@ -731,12 +727,12 @@ class: middle
 
 ## Conclusions
 
-.bold[New scientific questions become accessible]: We can now tackle inverse problems with millions to billions of variables that unlock new scientific insights and applications.
+Deep generative models unlock high-dimensional Bayesian inference in complex physical models: .bold[new scientific questions become accessible], which were out of reach with classical methods.
 
 Next challenges:
 - Rigorous validation: when and why these methods work (or not).
 - Resolution (in space and time): can we go higher?
-- Misspecification: what if the prior, the physical, or the observation model are wrong?
+- Misspecification: what if the prior, the physical, or the observation models are wrong?
 
 ---
 

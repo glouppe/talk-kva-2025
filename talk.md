@@ -183,7 +183,7 @@ The object we studied is WISE 1738+2732, a brown dwarf located about 25 light-ye
 
 It was observed with the JWST telescope, which provided us with a high-quality spectrum of its atmosphere.
 
-This brown dwarf is interesting because its temperature is similar to that of some exoplanets, making it a good proxy for studying exoplanet atmospheres. It is also interesting because it is cool enough to have complex molecules like water vapor, methane, and ammonia bumbling around in its atmosphere. 
+This brown dwarf is interesting because its temperature is similar to that of some exoplanets, making it a good proxy for studying exoplanet atmospheres. It is also interesting because it is cool enough to have complex molecules like water vapor, methane, or ammonia.
 
 ---
 
@@ -471,7 +471,7 @@ Posterior oxygen maps $p(x|y)$ can be recovered from satellite observations $y$ 
 
 ???
 
-Fortunately, good enough physical models of the Black Sea exist, which can be used to produce reanalysis data and  train a diffusion prior $p(x)$ of realistic 3d oxygen maps $x$, just as explained before.
+Fortunately, good enough physical models of the Black Sea exist, which can be used to produce reanalysis data and  train a diffusion prior $p(x)$ of realistic 3d oceanic states $x$, including temperature, salinity, and oxygen concentration.
 
 Our preliminary results show that we can recover realistic 3d oxygen maps from satellite observations of the surface. 
 
@@ -637,17 +637,22 @@ This is orders of magnitude larger than what current diffusion models can handle
 
 class: middle
 
-.avatars[![](figures/faces/frozet.jpg)]
+.avatars[![](figures/faces/frozet.jpg)![](figures/faces/ruben_ohana.jpg)![](figures/faces/michael_mccabe.jpg)![](figures/faces/francois_lanusse.jpg)![](figures/faces/shirley_ho.jpg)]
 
 ## Latent diffusion models for physics emulation
 
 .center.width-100[![](figures/lola.svg)]
+
+.grid[
+.kol-3-4[
 .center[
-<video poster="" id="video" controls="" muted="" loop="" width="65%" autoplay>
+<video poster="" id="video" controls="" muted="" loop="" width="100%" autoplay>
         <source src="https://polymathic-ai.org/images/blog/latent_space_vid/euler_f32c64.mp4" type="video/mp4">
 </video>
 ]
-Accurate physics emulators can be built by learning a diffusion model $p\_\theta(z)$ of compressed latent states $z$, even when the compression rate is very high.
+]
+.kol-1-4[<br><br>LDMs trained on compressed latent states $z = E(x)$ remain accurate even at high compression rates.]
+]
 
 .footnote[Credits: [Rozet et al](https://arxiv.org/abs/2507.02608), 2025 (arXiv:2507.02608).]
 
@@ -667,7 +672,7 @@ class: middle
 
 Appa is made of three components:
 - a 500M-parameter .bold[autoencoder] that compresses the data space $x$ into a latent space $z$ with a 450x compression factor;
-- a 1B-parameter .bold[diffusion model] that generates latent trajectories $z\_{1:L}$;
+- a 1B-parameter .bold[latent diffusion model] that generates latent trajectories $z\_{1:L}$;
 - a .bold[posterior sampling algorithm] adapted from MMPS (Rozet et al, 2024) that samples from the posterior distribution $p(z\_{1:L} | y)$.
 
 .footnote[Credits: [Andry et al](https://arxiv.org/abs/2504.18720), 2025 (arXiv:2504.18720). New version soon on arXiv!]
@@ -727,7 +732,7 @@ class: middle
 
 ## Conclusions
 
-Deep generative models unlock high-dimensional Bayesian inference in complex physical models: .bold[new scientific questions become accessible], which were out of reach with classical methods.
+Deep generative models unlock high-dimensional Bayesian inference in complex physical models: .bold[new scientific questions become accessible].
 
 Next challenges:
 - Rigorous validation: when and why these methods work (or not).

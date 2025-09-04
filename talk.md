@@ -728,6 +728,21 @@ Put back if needed.
 
 class: middle
 
+.avatars[![](figures/faces/thomas.jpg)![](figures/faces/frozet.jpg)]
+
+## Bonus: Training-free data assimilation with GenCast
+
+The score decomposition can also be used to turn autoregressive weather models $p(x\_{k+1} | x\_{k})$ into samplers of the optimal proposal distribution $p(x\_{k+1} | x\_k, y\_{k+1})$ without any training, which enables data assimilation with a particle filter.
+
+.center.width-80[![](figures/thomas_skill.png)]
+.center.width-80[![](figures/thomas_traj_z500.png)]
+
+.footnote[Credits: Soon on arXiv!]
+
+---
+
+class: middle
+
 .center.width-10[![](figures/icons/verifier.png)]
 
 ## Conclusions
@@ -750,9 +765,9 @@ count: false
 
 .width-15.circle[![](figures/faces/gerome.jpg)] .width-15.circle[![](figures/faces/frozet.jpg)] .width-15.circle[![](figures/faces/victor.jpg)] .width-15.circle[![](figures/faces/omer.jpg)] .width-15.circle[![](figures/faces/sacha.jpg)]
 
-.width-15.circle[![](figures/faces/mathias.jpg)] .width-15.circle[![](figures/faces/elise.jpg)] .width-15.circle[![](figures/faces/malavika.jpg)] .width-15.circle[![](figures/faces/arnaud.jpg)] .width-15.circle[![](figures/faces/joeri.png)]
+.width-15.circle[![](figures/faces/mathias.jpg)] .width-15.circle[![](figures/faces/elise.jpg)] .width-15.circle[![](figures/faces/malavika.jpg)] .width-15.circle[![](figures/faces/thomas.jpg)]
 
-(Gérome, François, Victor, Omer, Sacha, Matthias, Elise, Malavika, Arnaud, Joeri)
+(Gérome, François, Victor, Omer, Sacha, Matthias, Elise, Malavika, Thomas)
 
 ]
 

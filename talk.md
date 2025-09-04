@@ -29,8 +29,6 @@ Good morning everyone, and thank you for the invitation to speak at this symposi
 
 My goal today is to give you a brief overview of some of the work we have been doing at the intersection of deep learning and inverse problems in science. We will look at three different scales of inverse problems, from low-dimensional to extra-large, and see how deep generative models can help us tackle them.
 
-I will try to explain how deep generative models are not just fancy tools to generate AI slop, but above all how they can help us probe physics that was previously out of reach due to computational limitations. 
-
 This talk will echo some of the themes discussed yesterday, Laurence's talk in particular, so this is a good opportunity to connect the dots.
 
 ---
@@ -43,7 +41,7 @@ background-size: cover
 
 ???
 
-As a motivating example, imagine we have a noisy observation $y$ of some underlying physical process.
+As a starting example, imagine we have a noisy observation $y$ of some underlying physical process.
 
 The observation could be a low-resolution satellite image of the atmosphere, a noisy medical scan, or simply a photograph taken in low light conditions.
 
@@ -53,13 +51,13 @@ class: middle, black-slide, center
 background-image: url(figures/x.png)
 background-size: cover
 
-.bold.larger[... can we recover <br> all plausible images $x$?]
+.bold.larger[... can we recover <br> all plausible states $x$?]
 
 ???
 
 Our goal today is then quite simple: given the noisy observation $y$, can we recover all plausible physical states $x$ that could have caused this observation?
 
-For instance, if $y$ is a sparse and resolution-limited satellite image of the atmosphere, can we recover a high-resolution estimate of the full 3d dynamics of the atmosphere which is consistent with this observation?
+For instance, if $y$ is a sparse and resolution-limited satellite image of the atmosphere, can we recover a high-resolution estimate of the full 3d volume that is consistent with this observation?
 
 ---
 
@@ -84,11 +82,9 @@ $$
 
 ???
 
-If we have a good understanding of the physics, we can also often write down a mathematical model of the physical process itself and relate physical states $x$ to fundamental parameters $\theta$.
+If we have a good understanding of the physics, we can also often write down a mathematical or computer model of the physical process itself and relate physical states $x$ to fundamental parameters $\theta$.
 
-In the case of the atmosphere, we can use the Navier-Stokes equations to model the fluid dynamics. 
-
-A variation of our problem would then be to infer the model parameters $\theta$ that best explain the observation $y$?
+A variation of our problem would then be to infer the model parameters $\theta$ that best explain the observation $y$.
 
 ---
 
@@ -104,7 +100,7 @@ Given noisy observations $y$, estimate either
 
 ???
 
-Inverse problems are common in science, because experimental measurements are neither direct nor perfect. Instead, we have to deal with instrumental noise, limited resolution, and incomplete observations. As a result, our only resort is to guess the underlying physical state or model parameters that could have led to these observations, and to quantify the uncertainty in our estimates.
+Inverse problems are common in science, because experimental measurements are neither direct nor perfect. Instead, we have to deal with instrumental noise, limited resolution, incomplete or indirect observations. As a result, our only resort is to guess the underlying physical state or model parameters that could have led to these observations, and to quantify the uncertainty in our estimates.
 
 Formally, we want to estimate either the posterior distribution $p(x|y)$ of latent states $x$ given noisy observations $y$, or the posterior distribution $p(\theta|y)$ of model parameters $\theta$.
 
@@ -449,13 +445,15 @@ How do hypoxic zones evolve in response to climate change? Can we monitor them f
 
 ???
 
-We have had quite a few examples yesterday from astrophysics and cosmology, so let me now turn to quite a different domain of application we have been working on recently: nowcasting hypoxia in the Black Sea from satellite observations.
+We have had quite a few examples yesterday from astrophysics and cosmology, so let me now turn to quite a different scientific domain: oceanography.
+
+The application I want to highlight is the problem of nowcasting hypoxia in the Black Sea from satellite observations.
 
 The Black Sea is a large inland sea between Eastern Europe and Western Asia. It is a unique ecosystem, with a strong stratification that leads to anoxic conditions below 200m depth. This makes it a good laboratory to study hypoxia, which is a growing problem in many coastal areas worldwide due to climate change and nutrient pollution. Understanding how these zones evolve could inform early warning systems and ecosystem management strategies.
 
 In collaboration with oceanographers, we are trying to map the 3D oxygen concentration in the Black Sea from satellite observations of the surface and sparse in-situ measurements. This is a challenging inverse problem, as high resolution is needed:
 - Oxygen depletion patterns follow the complex bathymetry and circulation. If we miss the small-scale features, then we miss the physics of hypoxia.
-- Satellite observations at 1km resolution can detect blooms and fronts that 25km resolution would completely smooth out. Inference at high resolution is therefore critical.
+- Satellite observations at 1km resolution can detect phytoplankton blooms and fronts that 25km resolution would completely smooth out. Inference at high resolution is therefore critical.
 
 ---
 
@@ -732,7 +730,7 @@ class: middle
 
 ## Bonus: Training-free data assimilation with GenCast
 
-The score decomposition can also be used to turn autoregressive weather models $p(x\_{k+1} | x\_{k})$ into samplers of the optimal proposal distribution $p(x\_{k+1} | x\_k, y\_{k+1})$ without any training, which enables data assimilation with a particle filter.
+The score decomposition can also be used to turn autoregressive weather models $p(x\_{k+1} | x\_{k})$ into samplers of the optimal proposal distribution $p(x\_{k+1} | x\_k, y\_{k+1})$ .bold[without any change to the model or any training], enabling online data assimilation with a particle filter.
 
 .center.width-80[![](figures/thomas_skill.png)]
 .center.width-80[![](figures/thomas_traj_z500.png)]
